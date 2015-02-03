@@ -1,11 +1,18 @@
 
 package Controller;
 
+import Model.Administrador;
+import Model.Database.AdministradorDAO;
+
 public class LoginController {
     
-    public int checkUser(String user, String pass) {
+    public boolean checkUser(String userEmail, String userPass) {
         
-        return 1;
+        Administrador adm;
+        AdministradorDAO admDAO = new AdministradorDAO();
+        
+        boolean check = admDAO.checkLogin(userEmail, userPass);
+        return check;
     }
     
 }

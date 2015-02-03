@@ -21,6 +21,32 @@ public class AdministradorDAO {
         connection = new ConnectionFactory().getConnection();
     }
 
+    public boolean checkLogin(String email, String senha) {
+
+        String sql = "SELECT u.email, u.senha FROM usuario u WHERE u.email = (?) AND "
+                + "u.senha = (?) AND u.papel = 'Administrador'";
+        
+        adm = new Administrador();
+
+        try {
+            pstm = connection.prepareStatement(sql);
+            pstm.setString(1, email);
+            pstm.setString(2, senha);
+
+            pstm.execute();
+            rs = pstm.getResultSet();
+            
+            if (rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     public String checkEmailExists(String email) {
         
         String emailResult = "";
