@@ -160,16 +160,20 @@ public class Login extends javax.swing.JFrame {
         String userEmail = nomeTextField.getText();
         String userPass = new String(senhaTextField.getPassword());
 
-        if (userEmail.equals("") || userPass.equals("")) {
-            JOptionPane.showMessageDialog(null, "Preencha os campos de Email e Senha para efetuar o login no sistema.");
-        } else {
-            boolean check = loginController.checkUser(userEmail, userPass);
-            if (!check) {
-                JOptionPane.showMessageDialog(null, "Usuário não encontrado, tente novamente!");
-            } else {
+        int temp = loginController.checkUser(userEmail, userPass);
+        switch(temp) {
+            case 0:
                 dispose();
                 new Index().setVisible(true);
-            }
+            break;
+            
+            case 1:
+                JOptionPane.showMessageDialog(null, "Preencha os campos de Email e Senha para efetuar o login no sistema.");
+            break;
+            
+            case 2:
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado, tente novamente!");
+            break;
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
